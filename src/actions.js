@@ -30,6 +30,10 @@ export const searchKeyword = (keyword) => {
   return (dispatch) => {
     dispatch(requestRepo(keyword));
 
+    if (!keyword) {
+      return dispatch(receiveRepo(keyword, []));
+    }
+
     return axios.get(`https://api.github.com/users/${keyword}/repos`)
       .then(res => {
         dispatch(receiveRepo(keyword, res.data));
