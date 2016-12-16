@@ -34,7 +34,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { keyword, items } = this.props;
+    const { items } = this.props;
     return (
       <div>
         <Search onChange={debounce(this.handleChange, 300)} onSubmit={this.handleSubmit} />
