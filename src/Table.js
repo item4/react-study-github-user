@@ -4,7 +4,7 @@ export default class Table extends React.Component {
   render() {
     const rows = this.props.data.map(data => {
       return (
-        <tr>
+        <tr key={data.id}>
           <td><a href={data.html_url}>{data.full_name}</a></td>
           <td>{data.language}</td>
         </tr>
