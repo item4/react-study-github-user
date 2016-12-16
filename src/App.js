@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce';
 import React from 'react';
 import { connect } from 'react-redux';
 import Search from './Search';
@@ -36,7 +37,7 @@ class App extends React.Component {
     const { keyword, items } = this.props;
     return (
       <div>
-        <Search keyword={keyword} onChange={this.handleChange} onSubmit={this.handleSubmit} />
+        <Search onChange={debounce(this.handleChange, 300)} onSubmit={this.handleSubmit} />
         <Table data={items} />
       </div>
     );
