@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import {
   CHANGE_KEYWORD,
   REQUEST_REPO, RECEIVE_REPO,
-  RECEIVE_LIMIT
+  RECEIVE_LIMIT,
+  REQUEST_INFO, RECEIVE_INFO,
 } from './actions';
 
 function keyword(state = '', action) {
@@ -45,9 +46,31 @@ function limit(state = {max: 60, remain: 60, reset: 0}, action) {
   }
 }
 
+function info(state = {isFetching: false, didInvalidate: false, data: {}}, action) {
+  switch (action.type) {
+    case CHANGE_KEYWORD:
+      return Object.assign({}, state, {
+        didInvalidate: true,
+      });
+    case REQUEST_INFO:
+      return Object.assign({}, state, {
+        isFetching: true,
+        didInvalidate: false,
+      });
+    case RECEIVE_INFO:
+      return Object.assign({}, state, {
+        isFetching: false,
+        data: action.data,
+      });
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   keyword,
   repo,
   limit,
+  info,
 });
 export default rootReducer;

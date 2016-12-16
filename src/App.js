@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Search from './Search';
 import { searchKeywordIfNeeded, changeKeyword } from './actions';
+import Info from './Info';
 import Table from './Table';
 
 class App extends React.Component {
@@ -34,28 +35,23 @@ class App extends React.Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { keyword, repo, info } = this.props;
     return (
       <div>
         <Search onChange={debounce(this.handleChange, 300)} onSubmit={this.handleSubmit} />
-        <Table data={items} />
+        { keyword && <Info info={info.data} /> }
+        { keyword && <Table data={repo.items} /> }
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { keyword, repo } = state;
-  const { isFetching, didInvalidate, items } = repo || {
-    isFetching: false,
-    didInvalidate: false,
-    items: [],
-  };
+  const { keyword, repo, info } = state;
   return {
     keyword,
-    isFetching,
-    didInvalidate,
-    items,
+    repo,
+    info,
   };
 }
 
