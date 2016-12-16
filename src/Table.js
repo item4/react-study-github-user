@@ -25,3 +25,12 @@ export default class Table extends React.Component {
     );
   }
 }
+
+Table.propTypes = {
+  data: React.PropTypes.arrayOf(React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+    html_url: React.PropTypes.string.isRequired,
+    full_name: React.PropTypes.string.isRequired,
+    language: React.PropTypes.string,
+  })),
+};

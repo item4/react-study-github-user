@@ -33,3 +33,13 @@ export default class Info extends React.Component {
     );
   }
 }
+
+Info.propTypes = {
+  html_url: React.PropTypes.string,
+  name: React.PropTypes.string,
+  blog: React.PropTypes.string,
+  public_repos: React.PropTypes.string,
+  public_gists: React.PropTypes.string,
+  followers: React.PropTypes.number,
+  following: React.PropTypes.number,
+};
