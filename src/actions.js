@@ -116,13 +116,13 @@ export const fetchInfo = (keyword) => {
 };
 
 export const shouldFetchRepo = (state) => {
-  const repos = state.repos;
-  if (!repos) {
+  const repo = state.repo;
+  if (!repo) {
     return true;
-  } else if (repos.isFetching) {
+  } else if (repo.isFetching) {
     return false;
   }
-  return repos.didInvalidate;
+  return repo.didInvalidate;
 }
 
 export const shouldFetchInfo = (state) => {
