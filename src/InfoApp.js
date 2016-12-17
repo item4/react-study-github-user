@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Search from './Search';
 import { searchKeywordIfNeeded, changeKeyword } from './actions';
 import Info from './Info';
-import Menu from './Menu';
 import Table from './Table';
 
 class InfoApp extends React.Component {
@@ -39,7 +38,6 @@ class InfoApp extends React.Component {
     const { keyword, repo, info } = this.props;
     return (
       <div>
-        <Menu />
         <Search onChange={debounce(this.handleChange, 300)} onSubmit={this.handleSubmit} />
         { keyword && <Info info={info.data} /> }
         { keyword && <Table data={repo.items} /> }
