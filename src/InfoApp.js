@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import Search from './Search';
 import { searchKeywordIfNeeded, changeKeyword } from './actions';
 import Info from './Info';
+import Menu from './Menu';
 import Table from './Table';
 
-class App extends React.Component {
+class InfoApp extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,6 +39,7 @@ class App extends React.Component {
     const { keyword, repo, info } = this.props;
     return (
       <div>
+        <Menu />
         <Search onChange={debounce(this.handleChange, 300)} onSubmit={this.handleSubmit} />
         { keyword && <Info info={info.data} /> }
         { keyword && <Table data={repo.items} /> }
@@ -46,7 +48,7 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
+InfoApp.propTypes = {
   keyword: React.PropTypes.string.isRequired,
   repo: React.PropTypes.shape({
     isFetching: React.PropTypes.bool.isRequired,
@@ -76,4 +78,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(InfoApp);

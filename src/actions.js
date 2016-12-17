@@ -90,7 +90,7 @@ export const fetchInfo = (keyword) => {
     dispatch(requestRepo(keyword));
 
     if (!keyword) {
-      return dispatch(receiveInfo(keyword, []));
+      return dispatch(receiveInfo(keyword, {}));
     }
 
     if (limit.remain > 0 || Date.now()/1000 > limit.reset) {
