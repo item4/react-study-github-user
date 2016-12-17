@@ -5,7 +5,6 @@ import React from 'react';
 export default class Info extends React.Component {
   render() {
     const info = this.props.info;
-    console.log(info);
     if (isEmpty(info)) {
       return (
         <div>
