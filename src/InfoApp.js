@@ -1,6 +1,7 @@
 import debounce from 'lodash/debounce';
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import Search from './Search';
 import { searchKeywordIfNeeded, changeKeyword } from './actions';
 import Info from './Info';
@@ -14,13 +15,14 @@ class InfoApp extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch, keyword } = this.props;
-    dispatch(searchKeywordIfNeeded(keyword));
+    const { dispatch, params } = this.props;
+    dispatch(searchKeywordIfNeeded(params.keyword));
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.keyword !== this.props.keyword) {
-      const { dispatch, keyword } = nextProps;
+    if (nextProps.params.keyword !== this.props.params.keyword) {
+      const { dispatch } = nextProps;
+      const { keyword } = nextProps.params;
       dispatch(searchKeywordIfNeeded(keyword));
     }
   }
@@ -32,22 +34,23 @@ class InfoApp extends React.Component {
   handleChange(keyword) {
     const { dispatch } = this.props;
     dispatch(changeKeyword(keyword));
+    browserHistory.push(`/info/${keyword}`);
   }
 
   render() {
-    const { keyword, repo, info } = this.props;
+    const { repo, info, params } = this.props;
     return (
       <div>
-        <Search onChange={debounce(this.handleChange, 300)} onSubmit={this.handleSubmit} />
-        { keyword && <Info info={info.data} /> }
-        { keyword && <Table data={repo.items} /> }
+        <Search keyword={params.keyword} onChange={debounce(this.handleChange, 300)} onSubmit={this.handleSubmit} />
+        { params.keyword && <Info info={info.data} /> }
+        { params.keyword && <Table data={repo.items} /> }
       </div>
     );
   }
 }
 
 InfoApp.propTypes = {
-  keyword: React.PropTypes.string.isRequired,
+//  keyword: React.PropTypes.string.isRequired,
   repo: React.PropTypes.shape({
     isFetching: React.PropTypes.bool.isRequired,
     didInvalidate: React.PropTypes.bool.isRequired,
@@ -64,12 +67,14 @@ InfoApp.propTypes = {
     reset: React.PropTypes.number.isRequired,
   }).isRequired,
   dispatch: React.PropTypes.func.isRequired,
+  params: React.PropTypes.shape({
+    keyword: React.PropTypes.string,
+  }),
 };
 
 const mapStateToProps = (state) => {
-  const { keyword, repo, info, limit } = state;
+  const { repo, info, limit } = state;
   return {
-    keyword,
     repo,
     info,
     limit,

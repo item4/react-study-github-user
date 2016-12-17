@@ -6,15 +6,6 @@ import {
   REQUEST_INFO, RECEIVE_INFO,
 } from './actions';
 
-function keyword(state = '', action) {
-  switch (action.type) {
-    case CHANGE_KEYWORD:
-      return action.keyword;
-    default:
-      return state;
-  }
-}
-
 function repo(state = {isFetching: false, didInvalidate: false, items: []}, action) {
   switch (action.type) {
     case CHANGE_KEYWORD:
@@ -68,7 +59,6 @@ function info(state = {isFetching: false, didInvalidate: false, data: {}}, actio
 }
 
 const rootReducer = combineReducers({
-  keyword,
   repo,
   limit,
   info,
