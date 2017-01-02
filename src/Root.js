@@ -13,8 +13,7 @@ export default class Root extends React.Component {
         <Router history={browserHistory}>
           <Route path="/" component={App}>
             <IndexRoute component={IndexPage} />
-            <Route path="/info" component={InfoApp} />
-            <Route path="/info/:keyword" component={InfoApp} />
+            <Route path="/info(:keyword)" component={InfoApp} />
           </Route>
         </Router>
       </Provider>
